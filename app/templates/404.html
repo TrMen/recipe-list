@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>File Not Found</h1>
+    <div style="display: inline">
+        {% if referer %}
+            <p><a href="{{ referer }}">Back</a></p>
+        {% endif %}
+        <p><a href="{{ url_for('index') }}">Home</a></p>
+    </div>
+{% endblock %}

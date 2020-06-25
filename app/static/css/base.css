@@ -1,0 +1,222 @@
+html{
+    font-size: 20px;
+}
+nav {
+    background: #0a7557;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3rem;
+    width: 100%;
+    z-index: 9;
+}
+
+#spacing {
+    height: 3rem;
+}
+
+#left-nav {
+    float: left;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 100%;
+    width: 30%;
+}
+
+#right-nav {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    max-width: 100%;
+    width: 30%;
+    flex-direction: row-reverse;
+}
+#middle-nav{
+    max-width: 100%;
+    width: 40%;
+    float: left;
+}
+
+main{
+    overflow: auto;
+    max-width: 100vw;
+}
+
+#left-nav>a,
+#right-nav>a {
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    color: white;
+    margin: 0 1rem;
+}
+
+#title-text {
+    float: left;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+#search-form {
+    height: 100%;
+    float: left;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+}
+#term{
+    background: #12b386;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+#term:focus{
+    outline: none;
+}
+#term::placeholder{
+    color: white;
+}
+#go, #kind{
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: white;
+    background: #12b386;
+    margin-left: 0.2rem;
+}
+#go:hover{
+    background: #33e6b4;
+}
+#go:focus{
+    outline: none;
+}
+
+/*--------- Thumbnails -----------*/
+.recipe-preview{
+    background: white;
+    width: 100%;
+    height: calc(150px + 0.5rem);
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+.recipe-preview:visited{
+    color: initial;
+}
+.recipe-preview:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.thumbnail {
+    border: 1px solid #ddd;
+    float: left;
+    border-radius: 4px;
+    padding: 4px;
+    width: 150px;
+    height: 150px;
+}
+
+.recipe-information{
+    width: calc(100% - 158px);
+}
+
+.recipe-preview-author{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-information-item{
+    margin-bottom: 0.2rem;
+}
+
+/*----------Creation and edit forms-------------*/
+
+.edit-form-header {
+    color: white;
+    font-size: 3rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+}
+
+.edit-form-container {
+    background-color: hsla(149, 0%, 10%, 0.6);
+    border-radius: 2rem;
+    color: white;
+    width: 70vw;
+}
+
+.edit-form {
+    padding: 2rem;
+}
+
+.edit-form label {
+    font-size: 1.2rem;
+}
+
+.edit-form input:not([type="file"]),
+.edit-form select,
+.edit-form textarea {
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    min-height: 2rem;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.edit-form input[type="submit"] {
+    background: rgb(1, 63, 1);
+    color: white;
+}
+
+.edit-form input[type="file"] {
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+/*------------- Flashed messages ----------------*/
+
+.flashes{
+    position: absolute;
+    top: 4rem;
+    left: 1rem;
+    color: white;
+    padding: 0.5rem 1rem;
+    background: #0a7557;
+}
+
+/*--------- Mobile (This is just some basic stuff, this website isn't designed for mobile) -------------*/
+@media (max-width: 1200px) {
+    nav{
+        position: absolute;
+        height: 9rem;
+        display: flex;
+        flex-direction: column;
+    }
+    #left-nav, #middle-nav, #right-nav{
+        float: none;
+        flex-direction: row;
+    }
+    #spacing{
+        height: 9rem;
+    }
+    .flashes{
+        top: 10rem;
+    }
+}

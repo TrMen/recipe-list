@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    {% if title %}
+    <title>{{ title }} - Recipe List</title>
+    {% else %}
+    <title>Recipe List </title>
+    {% endif %}
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <nav>
+        <div id="left-nav">
+            <a href={{url_for('index')}}>Home</a>
+            <a href="{{url_for('random_recipe')}}">Random Recipe</a>
+            <a href="{{url_for('recipe', uuid='48d45516-0e59-4fd4-bb0e-18b471bb6941')}}">First Recipe</a>
+        </div>
+        <div id="middle-nav">
+            <h1 id="title-text">Recipe List</h1>
+            {% if g.search_form %}
+            <form action="{{ url_for('search') }}" id="search-form" method="post" name="search">
+                {{ g.search_form.hidden_tag() }}
+                {{ g.search_form.term(placeholder='Find...') }}
+                {{ g.search_form.kind() }}
+                {{ g.search_form.go() }}
+            </form>
+            {% endif %}
+        </div>
+        <div id="right-nav">
+            {% if current_user.is_anonymous %}
+            <a href="{{url_for('login')}}">Login</a>
+            {% else %}
+            <a href={{url_for('user',username=current_user.username)}}>Profile</a>
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('create_recipe')}}">Create Recipe</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <div id="spacing"></div>
+    {% block content %}{% endblock %}
+</body>
+</html>

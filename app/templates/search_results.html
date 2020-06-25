@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    #search-term{
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        padding-bottom: 2rem;
+        padding-top: 1rem;
+    }
+    main{
+        background: linear-gradient(180deg, rgba(10, 117, 87, 0.2) 0%, rgba(0, 255, 224, 0.2) 100%);
+        min-height: calc(100% - 3rem);
+    }
+</style>
+<main>
+<h1 id="search-term">Results for {{search_term}}</h1>
+{% if recipes|length == 0 %}
+<h2>No results</h2>
+{% endif %}
+{% for recipe in recipes %}
+    {% include '_recipe.html' %}
+{% endfor %}
+{% endblock %}
+</main>

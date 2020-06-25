@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#edit_icon {
+    display: inline;
+    vertical-align: top;
+}
+h1{
+    font-size: 4rem;
+    font-style: normal;
+}
+h2{
+    font-size: 2rem;
+    font-style: normal;
+    padding: 0.5rem 0 1rem 0;
+}
+#name-section{
+    background: rgba(240, 240, 240, 0.5);
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #020202;
+}
+#about-section{
+    background: rgba(182, 204, 255, 0.5);
+    color: #020202;
+    min-height: 20vh;
+}
+#about-section > p{
+    margin: 0 auto;
+    word-wrap: break-word;
+    width: 80vw;
+}
+#recipes-section{
+    background: rgba(240, 240, 240, 0.5);
+    color: #020202;
+    min-height: calc(60vh - 3rem);
+}
+table {
+    table-layout: fixed;
+    width:80vw; margin: 0 auto
+}
+table tr td:empty {
+  width: 1rem;
+}
+main{
+    background: linear-gradient(180deg, rgba(10, 117, 87, 0.2) 0%, rgba(0, 255, 224, 0.2) 100%);
+    min-height: calc(100% - 3rem);
+}
+</style>
+<main>
+    <section id="name-section">
+        <h1 id="user-name">User Page of {{user.username}}</h1>
+        {% if edit_privilege  %}
+        <a href={{url_for('edit',username=user.username)}}>
+            <img id="edit_icon" width="25" height="25" src={{url_for('static',filename='images/edit.png')}} alt="Edit">
+        </a>
+        {% endif %}
+    </section>
+    <section id="about-section">
+        <h2 style="text-align: center"><u>About me:</u></h2>
+        <p style="text-align: center">{{user.about_me}}</p>
+    </section>
+    <section id="recipes-section">
+        <h2 style="text-align: center"><u>My Recipes:</u></h2>
+        <table>
+            {% for row in recipes %}
+            <tr>
+                {% for recipe in row %}
+                    <td>
+                        {% include '_recipe.html' %}
+                    </td>
+                    <td></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+</main>
+{% endblock %}

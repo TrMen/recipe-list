@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    main {
+        background: linear-gradient(180deg, rgba(10, 117, 87, 0.2) 0%, rgba(0, 255, 224, 0.2) 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: calc(100% - 3rem);
+    }
+
+    .edit-form input[type="submit"] {
+        background: rgb(0, 117, 79);
+    }
+</style>
+<main>
+    <h1 class="edit-form-header" style="color: black;">Register</h1>
+    <div class="edit-form-container">
+        <form action="" method="post" class="edit-form">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.username.label }}<br>
+                {{ form.username(placeholder='Enter Username...') }}<br>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(placeholder='Enter Email...') }}<br>
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(placeholder='Enter Password...') }}<br>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password2.label }}<br>
+                {{ form.password2(placeholder='Repeat Password...') }}<br>
+                {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.about_me.label }}<br>
+                {{ form.about_me(placeholder='Tell us something about you...') }}<br>
+                {% for error in form.about_me.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+</main>
+{% endblock %}

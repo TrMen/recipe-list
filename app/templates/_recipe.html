@@ -1,0 +1,12 @@
+<a href={{url_for('recipe',uuid=recipe.uuid)}} class="recipe-preview">
+    <img class="thumbnail" src={{url_for('image',image_set='thumbnails',image_name=recipe.thumbnail)}} alt="Placeholder">
+    <div class="recipe-information">
+        <h3 class="recipe-preview-author">{{ recipe.name }}</h3>
+        <p class="recipe-information-item">&#x1F551; {{recipe.minutes}} Minutes</p>
+        <p class="recipe-information-item">Skill Level: {{recipe.skill_level}} </p>
+        <p class="recipe-information-item">{{recipe.calories}} Calories</p>
+        {% if display_author %}
+        <p class="recipe-information-item">by: {{recipe.author.username}}</p>
+        {% endif %}
+    </div>
+</a>
