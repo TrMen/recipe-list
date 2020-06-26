@@ -2,7 +2,7 @@
 A Website for cooking recipes using a Flask backend.
 
 **Available online at:** https://recipe-listaw.herokuapp.com/index  
-The Heroku deployment is currently uncomplete. You can create an account, and create/view recipes as usual. 
+The Heroku deployment is currently incomplete. You can create an account, and create/view recipes as usual. 
 However, image uploads will not be persistent over multiple days. 
 Uploading many images may also result in a timeout, as image uploads are currently not asynchronous. I plan to fix this soon by using Amazon S3 for image storage.
 
