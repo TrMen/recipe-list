@@ -46,6 +46,9 @@ thumbnails = UploadSet('thumbnails', IMAGES,
 images = UploadSet('images', IMAGES,
                    default_dest=lambda p_app: os.path.join(p_app.config.get('VAR_FOLDER'), 'images'))
 
+if not os.path.exists(app.config['VAR_FOLDER']):
+    os.mkdir(app.config['VAR_FOLDER'])
+
 # Set up image storage locations and placeholders
 upload_sets = ('thumbnails', 'images')
 for u_set in upload_sets:
