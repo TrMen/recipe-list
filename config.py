@@ -31,3 +31,4 @@ class Config(object):
     VAR_FOLDER = _defaults['VAR_FOLDER']
     SEND_FILE_MAX_AGE_DEFAULT = _default('SEND_FILE_MAX_AGE_DEFAULT')
     MAX_SEARCH_RESULTS = 50
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT') # Required for heroku logging
