@@ -3,11 +3,11 @@ import os
 import logging
 from datetime import timedelta
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.dirname(__file__)
 
 _defaults = {
     'SECRET_KEY': 'Super_secret_key_here',
-    'SQLALCHEMY_DATABASE_URI': 'sqlite:///' + os.path.join(basedir, 'app.db'),
+    'SQLALCHEMY_DATABASE_URL': 'sqlite:///' + os.path.join(basedir, 'app.db'),
     'SQLALCHEMY_TRACK_MODIFICATIONS': False,
     'REMEMBER_COOKIE_DURATION': timedelta(minutes=120),
     'STATIC_FOLDER': os.path.join(basedir, 'app', 'static'),
@@ -24,7 +24,7 @@ def _default(variable_name: str):
 
 class Config(object):
     SECRET_KEY = os.environ.get('RECIPES_SECRET_KEY') or _default('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('RECIPES_DATABASE_URL') or _default('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or _default('SQLALCHEMY_DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = _defaults['SQLALCHEMY_TRACK_MODIFICATIONS']
     REMEMBER_COOKIE_DURATION = _defaults['REMEMBER_COOKIE_DURATION']
     STATIC_FOLDER = _defaults['STATIC_FOLDER']
