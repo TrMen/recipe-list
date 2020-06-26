@@ -21,14 +21,23 @@ csrf = CSRFProtect(app)
 if not os.path.exists('logs'):
     os.mkdir('logs')
 
-file_handler = RotatingFileHandler('logs/recipe_list.log', maxBytes=10240, backupCount=10)
-file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+if app.config['LOG_TO_STDOUT']: # Log to STDOUT for Heroku apps
+    # Make sure to do heroku config:set LOG_TO_STDOUT=1 in the project root directory to log to files on Heroku
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.DEBUG if app.debug else logging.INFO)
+    app.logger.addHandler(stream_handler)
+else:
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/recipe_list.log', maxBytes=10240, backupCount=10)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
 
-file_handler.setLevel(logging.INFO if app.debug else logging.DEBUG)
-app.logger.setLevel(logging.INFO if app.debug else logging.DEBUG)
+    file_handler.setLevel(logging.DEBUG if app.debug else logging.INFO)
+    app.logger.addHandler(file_handler)
+
+app.logger.setLevel(logging.DEBUG if app.debug else logging.INFO)
 app.logger.info('Recipe List startup')
 
-app.logger.addHandler(file_handler)
 
 # For image uploads with Flask-Upload. Do not use that garbage module again, it's full of bugs
 # Apparently we need to provide a lambda here because the config variable of app isn't getting recognized...
@@ -37,12 +46,16 @@ thumbnails = UploadSet('thumbnails', IMAGES,
 images = UploadSet('images', IMAGES,
                    default_dest=lambda p_app: os.path.join(p_app.config.get('VAR_FOLDER'), 'images'))
 
+if not os.path.exists(app.config['VAR_FOLDER']):
+    os.mkdir(app.config['VAR_FOLDER'])
+
 # Set up image storage locations and placeholders
 upload_sets = ('thumbnails', 'images')
 for u_set in upload_sets:
     path = os.path.join(app.config['VAR_FOLDER'], u_set)
     if not os.path.isdir(path):
-        app.logger.info('Creating folder and placeholder for upload_set {}'.format(u_set))
+        logging.debug('Config var folder location {}'.format(app.config['VAR_FOLDER']))
+        app.logger.info('Creating folder and placeholder for upload_set {} at {}'.format(u_set, path))
         os.mkdir(path)
     try:
         shutil.copy2(os.path.join(app.config['STATIC_FOLDER'], 'images', 'placeholder.png'), path)
