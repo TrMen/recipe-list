@@ -51,7 +51,8 @@ upload_sets = ('thumbnails', 'images')
 for u_set in upload_sets:
     path = os.path.join(app.config['VAR_FOLDER'], u_set)
     if not os.path.isdir(path):
-        app.logger.info('Creating folder and placeholder for upload_set {}'.format(u_set))
+        logging.debug('Config var folder location {}'.format(app.config['VAR_FOLDER']))
+        app.logger.info('Creating folder and placeholder for upload_set {} at {}'.format(u_set, path))
         os.mkdir(path)
     try:
         shutil.copy2(os.path.join(app.config['STATIC_FOLDER'], 'images', 'placeholder.png'), path)
